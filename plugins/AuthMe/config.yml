@@ -35,7 +35,7 @@ DataSource:
     # Column for storing players passwords
     mySQLColumnPassword: password
     # Column for storing players passwords salts
-    mySQLColumnSalt: salt
+    mySQLColumnSalt: ''
     # Column for storing players emails
     mySQLColumnEmail: email
     # Column for storing if a player is logged in or not
@@ -45,13 +45,13 @@ DataSource:
     # Column for storing a player's TOTP key (for two-factor authentication)
     mySQLtotpKey: totp
     # Column for storing the player's last IP
-    mySQLColumnIp: ''
+    mySQLColumnIp: ip
     # Column for storing players lastlogins
     mySQLColumnLastLogin: lastlogin
     # Column storing the registration date
     mySQLColumnRegisterDate: regdate
     # Column for storing the IP address at the time of registration
-    mySQLColumnRegisterIp: ''
+    mySQLColumnRegisterIp: regip
     # Column for storing player LastLocation - X
     mySQLlastlocX: x
     # Column for storing player LastLocation - Y
@@ -121,7 +121,7 @@ settings:
     # typical communication with the database to happen synchronously, set this to false
     useAsyncTasks: true
     # The name of the server, used in some placeholders.
-    serverName: ''
+    serverName: Your Minecraft Server
     restrictions:
         # Can not authenticated players chat?
         # Keep in mind that this feature also blocks all commands not
@@ -142,7 +142,7 @@ settings:
         - /totp
         # Max number of allowed registrations per IP
         # The value 0 means an unlimited number of registrations!
-        maxRegPerIp: 1
+        maxRegPerIp: 0
         # Minimum allowed username length
         minNicknameLength: 3
         # Maximum allowed username length
@@ -203,7 +203,7 @@ settings:
         DenyTabCompleteBeforeLogin: false
         # Should we display all other accounts from a player when he joins?
         # permission: /authme.admin.accounts
-        displayOtherAccounts: true
+        displayOtherAccounts: false
         # Spawn priority; values: authme, essentials, cmi, multiverse, default
         spawnPriority: authme,essentials,cmi,multiverse,default
         # Maximum Login authorized by IP
@@ -246,7 +246,7 @@ settings:
         # PBKDF2DJANGO, WORDPRESS, ROYALAUTH, ARGON2, CUSTOM (for developers only). See full list at
         # https://github.com/AuthMe/AuthMeReloaded/blob/master/docs/hash_algorithms.md
         # If you use ARGON2, check that you have the argon2 c library on your system
-        passwordHash: SALTEDSHA512
+        passwordHash: PBKDF2
         # If a password check fails, AuthMe will also try to check with the following hash methods.
         # Use this setting when you change from one hash method to another.
         # AuthMe will update the password to the new hash. Example:
@@ -256,7 +256,7 @@ settings:
         # Salt length for the SALTED2MD5 MD5(MD5(password)+salt)
         doubleMD5SaltLength: 8
         # Number of rounds to use if passwordHash is set to PBKDF2. Default is 10000
-        pbkdf2Rounds: 10000
+        pbkdf2Rounds: 20000
         # Prevent unsafe passwords from being used; put them in lowercase!
         # You should always set 'help' as unsafePassword due to possible conflicts.
         # unsafePasswords:
@@ -264,6 +264,13 @@ settings:
         # - 'password'
         # - 'help'
         unsafePasswords: 
+        - '123456'
+        - password
+        - qwerty
+        - '12345'
+        - '54321'
+        - '123456789'
+        - help
     registration:
         # Enable registration on the server?
         enabled: true
@@ -287,7 +294,7 @@ settings:
         # Do not use with login feature below
         forceKickAfterRegister: false
         # Does AuthMe need to enforce a /login after a successful registration?
-        forceLoginAfterRegister: true
+        forceLoginAfterRegister: false
     # Enable to display the welcome message (welcome.txt) after a login
     # You can use colors in this welcome.txt + some replaced strings:
     # {PLAYER}: player name, {ONLINE}: display number of online players,
@@ -338,7 +345,7 @@ GroupOptions:
     unregisteredPlayerGroup: ''
 Email:
     # Email SMTP server host
-    mailSMTP: ''
+    mailSMTP: smtp.gmail.com
     # Email SMTP server port
     mailPort: 465
     # Only affects port 25: enable TLS/STARTTLS?
@@ -388,7 +395,7 @@ Protection:
     enableProtectionRegistered: true
     geoIpDatabase:
         # Enable GeoIp database
-        enabled: true
+        enabled: false
         # The MaxMind clientId used to download the GeoIp database,
         # get one at https://www.maxmind.com/en/accounts/current/license-key
         # The EssentialsX project has a very useful tutorial on how to generate
@@ -409,7 +416,7 @@ Protection:
     countriesBlacklist: 
     - A1
     # Do we need to enable automatic antibot system?
-    enableAntiBot: false
+    enableAntiBot: true
     # The interval in seconds
     antiBotInterval: 5
     # Max number of players allowed to login in the interval
@@ -493,7 +500,7 @@ Security:
         # E.g. (if enabled)
         #  original email: my.email@example.com
         #  hidden email: my.***@***mple.com
-        enableEmailMasking: false
+        enableEmailMasking: true
         # Minutes after which a verification code will expire
         verificationCodeExpiration: 10
 # Before a user logs in, various properties are temporarily removed from the player,
