@@ -43,7 +43,7 @@ DataSource:
     # Column for storing if a player has a valid session or not
     mySQLColumnHasSession: hasSession
     # Column for storing a player's TOTP key (for two-factor authentication)
-    mySQLtotpKey: ''
+    mySQLtotpKey: totp
     # Column for storing the player's last IP
     mySQLColumnIp: ''
     # Column for storing players lastlogins
@@ -51,7 +51,7 @@ DataSource:
     # Column storing the registration date
     mySQLColumnRegisterDate: regdate
     # Column for storing the IP address at the time of registration
-    mySQLColumnRegisterIp: regip
+    mySQLColumnRegisterIp: ''
     # Column for storing player LastLocation - X
     mySQLlastlocX: x
     # Column for storing player LastLocation - Y
@@ -116,12 +116,12 @@ settings:
     # Log level: INFO, FINE, DEBUG. Use INFO for general messages,
     # FINE for some additional detailed ones (like password failed),
     # and DEBUG for debugging
-    logLevel: FINE
+    logLevel: INFO
     # By default we schedule async tasks when talking to the database. If you want
     # typical communication with the database to happen synchronously, set this to false
     useAsyncTasks: true
     # The name of the server, used in some placeholders.
-    serverName: Your Minecraft Server
+    serverName: ''
     restrictions:
         # Can not authenticated players chat?
         # Keep in mind that this feature also blocks all commands not
@@ -142,7 +142,7 @@ settings:
         - /totp
         # Max number of allowed registrations per IP
         # The value 0 means an unlimited number of registrations!
-        maxRegPerIp: 0
+        maxRegPerIp: 1
         # Minimum allowed username length
         minNicknameLength: 3
         # Maximum allowed username length
@@ -165,7 +165,7 @@ settings:
             - world_nether
             - world_the_end
         # This option will save the quit location of the players.
-        SaveQuitLocation: true
+        SaveQuitLocation: false
         # To activate the restricted user feature you need
         # to enable this option and configure the AllowedRestrictedUser field.
         AllowRestrictedUser: false
@@ -240,7 +240,7 @@ settings:
         # Minimum length of password
         minPasswordLength: 1
         # Maximum length of password
-        passwordMaxLength: 30
+        passwordMaxLength: 32
         # Possible values: SHA256, BCRYPT, BCRYPT2Y, PBKDF2, SALTEDSHA512,
         # MYBB, IPB3, PHPBB, PHPFUSION, SMF, XENFORO, XAUTH, JOOMLA, WBB3, WBB4, MD5VB,
         # PBKDF2DJANGO, WORDPRESS, ROYALAUTH, ARGON2, CUSTOM (for developers only). See full list at
@@ -314,7 +314,7 @@ settings:
     # Should we remove leave messages altogether?
     removeLeaveMessage: false
     # Do we need to add potion effect Blinding before login/register?
-    applyBlindEffect: true
+    applyBlindEffect: false
     # Do we need to prevent people to login with another case?
     # If Xephi is registered, then Xephi can login, but not XEPHI/xephi/XePhI
     preventOtherCase: true
@@ -372,7 +372,7 @@ Email:
     emailOauth2Token: ''
 Hooks:
     # Do we need to hook with multiverse for spawn checking?
-    multiverse: true
+    multiverse: false
     # Do we need to hook with BungeeCord?
     bungeecord: false
     # Send player to this BungeeCord server after register/login
@@ -388,7 +388,7 @@ Protection:
     enableProtectionRegistered: true
     geoIpDatabase:
         # Enable GeoIp database
-        enabled: false
+        enabled: true
         # The MaxMind clientId used to download the GeoIp database,
         # get one at https://www.maxmind.com/en/accounts/current/license-key
         # The EssentialsX project has a very useful tutorial on how to generate
