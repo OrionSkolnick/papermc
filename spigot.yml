@@ -19,7 +19,7 @@ messages:
   restart: Server is restarting
 settings:
   bungeecord: false
-  save-user-cache-on-stop-only: false
+  save-user-cache-on-stop-only: true
   sample-count: 12
   player-shuffle: 0
   user-cache-size: 1000
@@ -64,11 +64,11 @@ world-settings:
     simulation-distance: default
     thunder-chance: 100000
     merge-radius:
-      item: 0.5
-      exp: -1.0
-    mob-spawn-range: 8
+      item: 4.0
+      exp: 6.0
+    mob-spawn-range: 6
     item-despawn-rate: 6000
-    arrow-despawn-rate: 1200
+    arrow-despawn-rate: 300
     trident-despawn-rate: 1200
     zombie-aggressive-towards-villager: true
     nerf-spawner-mobs: false
@@ -102,11 +102,11 @@ world-settings:
       pitcherplant-modifier: 100
     entity-activation-range:
       animals: 32
-      monsters: 32
-      raiders: 64
-      misc: 16
-      water: 16
-      villagers: 32
+      monsters: 24
+      raiders: 48
+      misc: 8
+      water: 8
+      villagers: 24
       flying-monsters: 32
       wake-up-inactive:
         animals-max-per-tick: 4
@@ -157,4 +157,4 @@ players:
 config-version: 12
 stats:
   disable-saving: false
-  forced-stats: {}
+  forced-stats: {achievement.openInventory}
